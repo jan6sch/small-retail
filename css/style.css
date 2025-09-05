@@ -1,0 +1,1373 @@
+/* ======= Global ======= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #fafafa;
+  color: #333;
+  scroll-behavior: smooth;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ======= Header ======= */
+header {
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+}
+
+.logo {
+  font-size: 35px;
+  font-weight: bold;
+  flex-shrink: 0;
+  margin-right: 20px;
+  z-index: 2001;
+  color: rgb(150, 13, 30);
+}
+
+.logo-link {
+  text-decoration: none;
+  z-index: 2001;
+}
+
+#nav {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: flex-start;
+  gap: 40px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  z-index: 2999;
+}
+
+.nav-links a {
+  font-size: 20px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s;
+  font-weight: bold;
+  z-index: 3000;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: rgb(150, 13, 30);
+}
+
+.mobile-socials {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.mobile-socials span,
+.social-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-socials span:hover,
+.social-icon:hover {
+  background-color: rgb(150, 13, 30);
+  transform: scale(1.1);
+
+}
+
+.mobile-socials span a,
+.social-icon a {
+  color: #555;
+  font-size: 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-socials span:hover a,
+.social-icon:hover a {
+  color: white;
+}
+
+footer .mobile-socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer .social-icon a {
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+/* ======= Hamburger Menü ======= */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger div {
+  width: 30px;
+  height: 3px;
+  background: #333;
+  transition: all 0.4s ease;
+  transform-origin: center;
+}
+
+.hamburger.active div:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active div:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ======= Responsive Navigation ======= */
+@media (max-width: 1200px) {
+  .hamburger {
+    display: flex;
+  }
+
+  #nav {
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background: white;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    padding-top: 100px;
+    gap: 40px;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 999;
+  }
+
+  #nav.open {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    margin-top: 60px;
+  }
+
+  .nav-links a {
+    font-size: 28px;
+  }
+
+  .mobile-socials {
+    margin-top: auto;
+    padding-bottom: 40px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .social-icon a {
+    font-size: 28px;
+  }
+}
+
+/* ======= Sektionen allgemein ======= */
+.section {
+  min-height: 80vh;
+  padding: 40px 20px 20px 20px;
+  /* statt 40px unten */
+  scroll-margin-top: 100px;
+}
+
+h2 {
+  margin-bottom: 30px;
+  font-size: 50px;
+  text-align: left;
+}
+
+/* ======= Über uns (Responsive) ======= */
+.about-container {
+  overflow: hidden;
+  padding-top: 20px;
+  position: relative;
+}
+
+.about-container::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+/* Bild links, quadratisch, schrumpfbar */
+.about-container img {
+  float: left;
+  width: 50%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  max-width: 500px;
+  min-width: 150px;
+  height: auto;
+}
+
+/* Text umfließt Bild und geht darunter weiter */
+.about-text {
+  font-size: 20px;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+.about-text p {
+  margin-top: -20px;
+}
+
+@media (max-width: 1024px) {
+
+  .section {
+    min-height: 20vh;
+    padding: 40px 20px 20px 20px;
+    /* statt 40px unten */
+    scroll-margin-top: 100px;
+  }
+}
+
+/* ======= Über uns – Mobil-Ansicht ======= */
+@media (max-width: 900px) {
+  .about-container img {
+    float: none;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+
+    margin: -20px auto 10px auto;
+
+  }
+
+  .about-text {
+    padding: 0 6px;
+    padding-bottom: 30px;
+    text-align: justify;
+    margin-bottom: 0px;
+  }
+
+  .about-text h2 {
+    margin-bottom: 17px;
+    font-size: 40px;
+  }
+
+}
+
+
+
+#news {
+  background-color: #f9f9f9;
+  padding: 40px 20px;
+}
+
+/* Flexbox-Container */
+.news-flexbox {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+/* --- News-Spalte --- */
+.news-column {
+  width: 100%;
+  max-width: 500px;
+  /* schmaler für News */
+}
+
+.news-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 15px;
+  margin-bottom: 5px;
+}
+
+.news-header h2 {
+  font-size: 50px;
+  /* größer */
+  font-weight: 700;
+}
+
+.news-date {
+  font-size: 22px;
+  /* größer */
+  color: #444;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24.5px;
+}
+
+.news-list p {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: -30px;
+}
+
+
+
+.news-entry {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  padding: 21px 28px;
+  /* mehr Platz */
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: background 0.3s;
+
+}
+
+.news-entry:hover {
+  background: #f5f5f5;
+}
+
+.news-entry h3 {
+  margin: 0;
+  font-size: 20px;
+  /* deutlich größer */
+  font-weight: 600;
+}
+
+.news-date-small {
+  font-size: 16px;
+  color: #777;
+}
+
+.news-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  transition: all 0.4s ease;
+}
+
+.news-entry.open .news-content {
+  max-height: 1000px;
+  opacity: 1;
+  padding-top: 12px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* --- Slider-Spalte --- */
+.news-slider-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  /* nach rechts */
+  align-items: flex-start;
+  /* nach oben */
+  padding: 0;
+  /* bündig */
+  border-radius: 12px;
+  box-sizing: border-box;
+  background: #ffeaea;
+  /* rote Box simuliert */
+}
+
+.news-slider-container {
+  width: 100%;
+  max-width: 600px;
+  /* größerer Slider */
+  margin: 0;
+  /* bündig */
+}
+
+.news-slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.news-slider-wrapper {
+  width: 100%;
+  max-width: 600px;
+  /* oder wie groß du willst */
+  aspect-ratio: 1 / 1;
+  /* Quadrat */
+  position: relative;
+
+}
+
+
+
+.news-slider-container {
+  width: 100%;
+  height: 100%;
+  /* nimmt die Höhe vom Wrapper */
+}
+
+.news-slider {
+  width: 100%;
+  height: 100%;
+  /* ganz wichtig */
+}
+
+.news-slider .swiper-slide {
+  width: 100%;
+  height: 100%;
+  /* nicht auto, sondern 100% */
+  position: relative;
+}
+
+.news-slider img {
+  position: absolute;
+  inset: 0;
+  /* top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+
+/* === Desktop Layout (ab 900px) === */
+@media (min-width: 900px) {
+
+  .news-flexbox {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 50px;
+  }
+
+  .news-column {
+    flex: 1 1 40%;
+    /* schmaler für News */
+    max-width: 500px;
+  }
+
+  .news-slider-wrapper {
+    flex: 0 1 60%;
+    /* größer für den Slider */
+    min-width: 450px;
+  }
+
+  .news-slider-container {
+    max-width: 650px;
+    /* größerer Slider */
+  }
+}
+
+/* === Sehr große Screens (ab 1400px) === */
+@media (min-width: 1400px) {
+  .news-column {
+    flex: 1 1 55%;
+    max-width: 600px;
+    /* noch schmaler */
+  }
+
+  .news-slider-wrapper {
+    flex: 0 1 45%;
+    /* größerer Slider */
+  }
+
+  .news-slider-container {
+    max-width: 700px;
+    /* größerer Slider */
+  }
+}
+
+/* === Tablet Layout (max 900px) === */
+@media (max-width: 900px) {
+  #news {
+    margin-top: 0px;
+  }
+
+  .news-header h2 {
+    margin-top: -200px;
+    font-size: 45px;
+    margin-left: -125px;
+
+  }
+
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-left: -125px;
+    width: 750px;
+    margin-bottom: 20px;
+  }
+
+  .news-slider-wrapper {
+    width: calc(100% - 34px);
+    max-width: 760px;
+    /* links + rechts Abstand */
+    margin: 0 20px;
+    aspect-ratio: 1 / 1;
+    /* immer quadratisch */
+    overflow: hidden;
+    border-radius: 12px;
+    position: relative;
+    /* Referenz für das img */
+    justify-content: center;
+    /* nach rechts */
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .news-slider-wrapper img {
+    position: absolute;
+    /* fixiert im Wrapper */
+    max-width: none;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Bild füllt den Bereich */
+    border-radius: 12px;
+  }
+
+  .news-slider-container {
+    width: 100%;
+    max-width: 760px;
+    /* größerer Slider */
+    margin: 0;
+    /* bündig */
+  }
+
+}
+
+/* === Mobile Layout (max 600px) === */
+@media (max-width: 600px) {
+  #news {
+    background-color: #f9f9f9;
+    padding: 15px 20px;
+    margin-top: 10px;
+    min-height: 10px;
+
+  }
+
+  .news-header h2 {
+    margin-top: -100px;
+    font-size: 40px;
+    margin-left: 0px;
+  }
+
+  .news-date {
+    font-size: 18px;
+  }
+
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 0px;
+    width: auto;
+    margin-bottom: 0px;
+    margin-top: -20px;
+  }
+
+  .news-list p {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: -30px;
+  }
+
+  .news-slider-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-bottom: -50px;
+    margin-top: 0px;
+    aspect-ratio: 1 / 1;
+    /* auch hier Quadrat */
+    position: relative;
+    overflow: hidden;
+
+  }
+
+  .news-slider-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+
+  }
+}
+
+
+/* ----- News-Seite (news.php) ----- */
+.nwp-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.nwp-heading {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  margin-bottom: 18px;
+}
+
+.nwp-list {
+  display: block;
+}
+
+.nwp-empty {
+  opacity: .7;
+}
+
+.nwp-item {
+  display: block;
+  padding: 16px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+  margin-bottom: 20px;
+  scroll-margin-top: 96px;
+  overflow: hidden;
+}
+
+.nwp-content {
+  text-align: justify;
+}
+
+.nwp-title {
+  margin: 0 0 8px;
+  font-size: 32px;
+}
+
+.nwp-date {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.nwp-text {
+  line-height: 1.5;
+}
+
+/* Rote Kurz-Markierung */
+.nwp-item.nwp-highlight {
+  outline: 3px solid #e20000;
+  outline-offset: 3px;
+  animation: nwpFade 2s ease-out forwards;
+}
+
+@keyframes nwpFade {
+  0% {
+    outline-color: #e20000;
+  }
+
+  100% {
+    outline-color: transparent;
+  }
+}
+
+/* Responsiv */
+@media (max-width: 900px) {
+  .nwp-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .nwp-content {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+/* ======= Marken ======= */
+.marken-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* sorgt dafür, dass er bei Handy umbrechen kann */
+  gap: 10px;
+}
+
+.marken-link {
+  background: #b00710;
+  color: #fff;
+  padding: 6px 14px;
+  /* schmaler, nur etwas größer als Text */
+  border-radius: 6px;
+  font-size: 20px;
+  /* gleiche Größe wie normale Schrift */
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.marken-link:hover {
+  background: #90050d;
+  /* etwas dunkler beim Hover */
+}
+
+.marken-header h2 {
+  font-size: 50px;
+  /* kannst du anpassen */
+  margin-bottom: 20px;
+}
+
+.card-list .card-link:hover {
+  border-color: darkblue;
+}
+
+.card-image {
+  width: 100%;
+  max-height: 300px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.badge {
+  color: darkblue;
+  padding: 8px 16px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 16px 0 18px;
+  background: #f0f0f3;
+  width: fit-content;
+  border-radius: 50px;
+}
+
+.card-button {
+  height: 35px;
+  width: 35px;
+  color: blue;
+  border-radius: 50%;
+  margin: 30px 0 5px;
+  border: 2px solid black;
+  background: none;
+  cursor: pointer;
+  transform: rotate(-45deg);
+  transition: 0.4s ease;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: blue !important;
+  /* Pfeil rot */
+  font-size: 40px !important;
+  /* Größe anpassen */
+  font-weight: bold;
+  /* macht den Pfeil etwas kräftiger */
+}
+
+
+/* Mobile Ansicht */
+@media (max-width: 900px) {
+
+  #brands {
+    margin-top: -10px;
+  }
+
+  .marken-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .marken-header h2 {
+    font-size: 45px;
+    /* kannst du anpassen */
+    margin-bottom: 0px;
+    margin-left: 15px;
+    margin-top: -10px;
+  }
+
+  .marken-link {
+    align-self: flex-start;
+    /* bleibt linksbündig unter der Überschrift */
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    margin-left: 15px;
+  }
+}
+
+
+.card-wrapper {
+  max-width: 1200px;
+  margin: 0 60px 35px;
+  padding: 20px 10px;
+  overflow: hidden;
+
+}
+
+.card-list .card-item {
+  list-style: none;
+}
+
+.card-list .card-link {
+  user-select: none;
+  display: block;
+  background-color: white;
+  min-height: 400px;
+  padding: 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+  border: 2px solid transparent;
+  transition: 0.2s ease;
+}
+
+@media (max-width: 600px) {
+  #brands {
+    margin-top: 80px;
+  }
+
+
+
+  .marken-header h2 {
+    font-size: 40px;
+    margin-top: -50px;
+    margin-left: 0px;
+  }
+
+  .card-wrapper {
+    margin: 0 10px 15px;
+  }
+
+  .swiper-button-prev {
+    margin-left: -10px;
+    /* weiter nach außen, Standard wäre ca. 10px */
+  }
+
+  .swiper-button-next {
+    margin-right: -10px;
+    /* weiter nach außen */
+  }
+
+
+  .marken-link {
+
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-wrapper {
+    margin: 0 0px 35px;
+  }
+
+
+  .card-button {
+    margin: 0px 0 5px;
+  }
+
+  .swiper-button-prev {
+    margin-left: -13px;
+    /* weiter nach außen, Standard wäre ca. 10px */
+  }
+
+  .swiper-button-next {
+    margin-right: -13px;
+    /* weiter nach außen */
+  }
+}
+
+
+
+
+
+
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-top: 30px;
+  align-items: stretch;
+}
+
+/* Rechte Spalte: Adresse + Telefon + Öffnungszeiten */
+.contact-right {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+}
+
+.contact-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.contact-box h3 {
+  margin-bottom: 14px;
+  font-size: 28px;
+  /* Titel noch etwas größer */
+  color: #d32f2f;
+}
+
+.contact-box p {
+  font-size: 20px;
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.contact-box small {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Extra Styling für Öffnungszeiten */
+.contact-box .day {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+/* Statusfarben */
+.status.open {
+  color: #2e7d32;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.status.closed {
+  color: #c62828;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.status.unknown {
+  color: #757575;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+/* ======= Formular ======= */
+.kontakt-form {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.kontakt-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 18px;
+  /* größere Schrift */
+}
+
+.kontakt-form input,
+.kontakt-form textarea {
+  padding: 12px;
+  font-size: 18px;
+  /* größere Schrift */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.kontakt-form textarea {
+  resize: none;
+  height: 150px;
+  max-height: 150px;
+}
+
+.kontakt-form button {
+  padding: 14px;
+  background-color: #d32f2f;
+  color: #fff;
+  font-size: 20px;
+  /* größere Schrift */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.kontakt-form button:hover {
+  background-color: #b71c1c;
+}
+
+/* ======= Responsive ======= */
+
+/* Tablet: Schreib uns oben, darunter 3 Boxen nebeneinander */
+@media (max-width: 1024px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-right {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .contact-right .contact-box {
+    flex: 1 1 calc(33.333% - 20px);
+  }
+}
+
+@media (max-width: 900px) {
+  #contact {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  #contact h2 {
+    font-size: 45px;
+    margin-top: -10px;
+  }
+
+  .contact-box h3 {
+    margin-bottom: 14px;
+    font-size: 25px;
+    /* Titel noch etwas größer */
+    color: #d32f2f;
+  }
+
+  .contact-box p {
+    font-size: 20px;
+    margin: 8px 0;
+    line-height: 1.5;
+  }
+
+  .contact-box small {
+    font-size: 20px;
+    color: #666;
+  }
+
+  /* Extra Styling für Öffnungszeiten */
+  .contact-box .day {
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 8px;
+  }
+
+  /* Statusfarben */
+  .status.open {
+    color: #2e7d32;
+    font-weight: bold;
+    font-size: 22px;
+  }
+
+  .status.closed {
+    color: #c62828;
+    font-weight: bold;
+    font-size: 22px;
+  }
+
+  .status.unknown {
+    color: #757575;
+    font-weight: bold;
+    font-size: 22px;
+  }
+}
+
+/* Handy: alles untereinander */
+@media (max-width: 768px) {
+  #contact {
+    margin-top: 30px;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  #contact h2 {
+    font-size: 40px;
+    margin-top: -50px;
+  }
+
+  .contact-right {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    gap: 15px;
+  }
+
+  .contact-right .contact-box {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 400px) {
+  #contact {
+    margin-top: 10px;
+  }
+
+  #contact h2 {
+    font-size: 40px;
+    margin-top: -50px;
+  }
+}
+
+
+
+
+
+
+/* ======= Footer ======= */
+footer {
+  background: #f0f0f0;
+  text-align: center;
+  padding: 10px 0;
+  /* schmaler Innenabstand */
+  margin-top: 40px;
+  /* Abstand nach oben zur Seite */
+}
+
+footer .container {
+  display: flex;
+  flex-direction: column;
+  /* Elemente übereinander */
+  align-items: center;
+  /* mittig zentrieren */
+  gap: 8px;
+  /* nur kleiner Abstand zwischen Socials und Impressum */
+}
+
+footer .mobile-socials {
+  margin: 0;
+  gap: 10px;
+  /* überschreibt evtl. Margins aus dem include */
+}
+
+footer a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+footer p {
+  margin: 0;
+  /* entfernt den großen Standardabstand */
+  line-height: 1.4;
+  /* kompakter Zeilenabstand */
+}
+
+/* Tablet & Handy */
+@media (max-width: 900px) {
+  footer {
+    padding: 0px;
+    /* noch weniger Innenabstand */
+    margin-top: 20px;
+
+
+  }
+
+  footer .container {
+    gap: 4px;
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    /* sehr kleiner Abstand */
+  }
+
+  footer a {
+    font-size: 18px;
+    margin-top: 150px;
+    /* Text leicht verkleinern */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----- Marken-Seite (marken.php) ----- */
+.mkp-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.mkp-heading {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  margin-bottom: 18px;
+}
+
+.mkp-list {
+  display: block;
+}
+
+.mkp-empty {
+  opacity: .7;
+}
+
+/* Ein Eintrag: links Bild, rechts Text */
+.mkp-item {
+  display: block;
+  /* statt flex */
+  padding: 16px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+  margin-bottom: 20px;
+  scroll-margin-top: 96px;
+
+  /* sorgt dafür, dass Float-Elemente mit einbezogen werden */
+  overflow: hidden;
+}
+
+.mkp-logo {
+  float: left;
+  margin: 0 20px 0px 0;
+  /* Abstand zum Text */
+}
+
+.mkp-logo img {
+  width: 215px;
+  /* feste Größe, Bild bleibt stabil */
+  height: 215px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.mkp-content {
+  text-align: justify;
+}
+
+
+.mkp-title {
+  margin: 0 0 8px;
+  font-size: 40px;
+}
+
+.mkp-desc {
+  line-height: 1.5;
+}
+
+:root {
+  /* Passe an deine Header-Höhe an, wenn nötig */
+  --sticky-offset: 96px;
+}
+
+/* Ein Eintrag auf marken.php */
+.mkp-item {
+  scroll-margin-top: var(--sticky-offset);
+}
+
+/* Rote Kurz-Markierung */
+.mkp-item.mkp-highlight {
+  outline: 3px solid #e20000;
+  outline-offset: 3px;
+  animation: mkpFade 2s ease-out forwards;
+}
+
+@keyframes mkpFade {
+  0% {
+    outline-color: #e20000;
+  }
+
+  100% {
+    outline-color: transparent;
+  }
+}
+
+
+
+/* Responsiv: ab ~900px stapeln (Bild oben, Text unten) */
+@media (max-width: 900px) {
+  .mkp-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .mkp-content {
+    width: 100%;
+  }
+}
